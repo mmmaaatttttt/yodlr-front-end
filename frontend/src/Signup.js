@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 class Signup extends Component {
   constructor(props) {
@@ -9,6 +10,7 @@ class Signup extends Component {
       lastName: ""
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e) {
@@ -17,14 +19,27 @@ class Signup extends Component {
     });
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+    console.log(this.state);
+    axios
+      .post("http://localhost:3000/users", this.state)
+      .then(res => {
+        this.props.history.push("/admin");
+      })
+      .catch(err => {
+        console.log("NO :(", err);
+      });
+  }
+
   render() {
     let { email, firstName, lastName } = this.state;
     return (
       <div>
         <h1>Signup</h1>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <input
-            type="text"
+            type="email"
             name="email"
             placeholder="Enter your email."
             onChange={this.handleChange}
