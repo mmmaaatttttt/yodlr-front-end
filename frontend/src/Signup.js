@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 class Signup extends Component {
@@ -21,7 +22,6 @@ class Signup extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log(this.state);
     axios
       .post("http://localhost:3000/users", this.state)
       .then(res => {
@@ -37,6 +37,8 @@ class Signup extends Component {
     return (
       <div>
         <h1>Signup</h1>
+        <p><Link to="/">Home</Link></p>
+        <p><Link to="/admin">Admin</Link></p>
         <form onSubmit={this.handleSubmit}>
           <input
             type="email"
